@@ -29,12 +29,12 @@
 	
 	<bean class= "org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="mediaTypes">
-      		<map>
-         		<entry key="json" value="application/json;charset=UTF-8"/>
-         		<entry key="xml" value="application/xml;charset=UTF-8"/>
-         		<entry key="html" value="text/html;charset=UTF-8"/>
-      		</map>
-   		</property>
+	      <map>
+	          <entry key="json" value="application/json;charset=UTF-8"/>
+	         	<entry key="xml" value="application/xml;charset=UTF-8"/>
+	        	<entry key="html" value="text/html;charset=UTF-8"/>
+	    	</map>
+	  </property>
 		<property name="defaultViews">
 			<list>
 				<ref bean="jsonView"/>
@@ -57,6 +57,26 @@
 				</property>
 			</bean>
 		</constructor-arg>
+	</bean>
+	
+	<mvc:interceptors>
+ 		<bean class= "com.packt.webstore.interceptor.PerformanceMonitorInterceptor"/>
+ 		<bean class= "org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="language"/>
+	 	</bean>
+	 	
+	 	<bean class= "com.packt.webstore.interceptor.AuditingInterceptor"/>
+	 	<bean class= "com.packt.webstore.interceptor.PromoCodeInterceptor">
+	 		 	<property name="promoCode" value="OF3RTA"/>
+	 			<property name="errorRedirect" value="invalidPromoCode"/>
+		 		<property name="offerRedirect" value="products"/>
+		</bean>
+	 	
+ 		
+	</mvc:interceptors>
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="en"/>
 	</bean>
 	
 </beans>
