@@ -1,3 +1,4 @@
+
 package com.packt.webstore.domain.repository.impl;
 
 import java.math.BigDecimal;
@@ -58,7 +59,7 @@ public class InMemoryProductRepository implements ProductRepository{
 		}
 		
 		if(productById == null){
-			throw new ProductNotFoundException(productId);
+			throw new ProductNotFoundException("Brak produktu o wskazanym identyfikatorze: "+productId+".");
 		}
 		
 		return productById;
